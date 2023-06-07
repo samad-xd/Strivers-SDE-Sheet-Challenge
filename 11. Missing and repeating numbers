@@ -1,0 +1,31 @@
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static int[] missingAndRepeating(ArrayList<Integer> arr, int n) {
+        //sum of all numbers from 1 to n
+        long s = n*(n+1)/2; 
+        //sum of squares of all numbers from 1 to n
+        long s2 = (long)n*(long)(n+1)*((long)(2*n)+1)/6;
+        long sn = 0, sn2 = 0;
+        for(int num: arr) {
+            //sum of all numbers in given array
+            sn += num;
+            //sum of sqaures of all numbers in given array
+            sn2 += ((long)num * (long)num);
+        }
+        //s-sn = x-y
+        //s2-sn2 = x2-y2    --------- x2-y2 = (x+y)(x-y)
+        //(s2-sn2)/x-y = x+y
+        //(s2-sn2)/s-sn = x+y  ------- s-sn = x-y
+        long XplusY = (s2-sn2)/(s-sn);
+        long XminusY = (s-sn);
+        //at this point we know x+y and x-y
+        //solve these equations to get values of x and y
+        long x = (XplusY + XminusY)/2; //x = (x+y)/2;
+        long y = XplusY - x;           //y = (x+y)-x;
+        return new int[]{(int)x, (int)y};
+    }
+}

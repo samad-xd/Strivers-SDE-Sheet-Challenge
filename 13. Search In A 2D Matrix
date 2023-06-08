@@ -1,0 +1,21 @@
+import java.util.ArrayList;
+public class Solution {
+    static boolean searchMatrix(ArrayList<ArrayList<Integer>> mat, int target) {
+        int n = mat.size(), m = mat.get(0).size();
+        int left = 0, right = (n*m)-1;
+        while(left <= right) {
+            int mid = (left+right)/2;
+            int num = mat.get(mid/m).get(mid%m);
+            if(num == target) {
+                return true;
+            }
+            else if(num < target) {
+                left = mid + 1;
+            }
+            else {
+                right = mid - 1;
+            }
+        }
+        return false;
+    }
+}

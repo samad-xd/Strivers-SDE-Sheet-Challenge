@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+
+public class Solution {
+	public static int longestSubSeg(ArrayList<Integer> arr , int n, int k) {
+		int left = 0, right;
+		for(right=0 ; right<n ; right++) {
+			if(arr.get(right) == 0) {
+				k--;
+			}
+			if(k < 0) {
+				if(arr.get(left) == 0) {
+					k++;
+				}
+				left++;
+			}
+		}
+		return right - left;
+	}
+}

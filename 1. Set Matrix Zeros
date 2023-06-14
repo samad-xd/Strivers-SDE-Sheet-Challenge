@@ -1,0 +1,31 @@
+import java.io.*;
+import java.util.* ;
+
+public class Solution {
+    public static void setZeros(int matrix[][]) {
+        int rows = matrix.length, cols = matrix[0].length;
+        boolean[] rowWithZero = new boolean[rows];
+        boolean[] colWithZero = new boolean[cols];
+        for(int i=0 ; i<rows ; i++) {
+            for(int j=0 ; j<cols ; j++) {
+                if(matrix[i][j] == 0) {
+                    rowWithZero[i] = true;
+                    colWithZero[j] = true;
+                }
+            }
+        }
+        for(int i=0 ; i<rows ; i++) {
+            if(rowWithZero[i]) {
+                Arrays.fill(matrix[i], 0);
+            }
+        }
+        for(int j=0 ; j<cols ; j++) {
+            if(colWithZero[j]) {
+                for(int i=0 ; i<rows ; i++) {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+
+}

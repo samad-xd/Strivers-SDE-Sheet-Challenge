@@ -1,0 +1,39 @@
+import java.util.* ;
+
+//import com.sun.tools.javac.code.Attribute.Array;
+
+import java.io.*; 
+public class Solution {
+
+	public static ArrayList<ArrayList<Integer>> findTriplets(int[] arr, int n, int K)  {
+		ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+		if(n < 3) return ans;
+		HashSet<ArrayList<Integer>> set = new HashSet<>();
+		Arrays.sort(arr);
+		for(int i=0 ; i<n-2 ; i++) {
+			int left = i+1, right = n-1;
+			int sum = K - arr[i];
+			while(left < right) {
+				int currSum = arr[left] + arr[right];
+				if(currSum == sum) {
+					ArrayList<Integer> temp = new ArrayList<>();
+					temp.add(arr[i]);
+					temp.add(arr[left]);
+					temp.add(arr[right]);
+					set.add(temp);
+					left++;
+				}
+				else if(currSum < sum) {
+					left++;
+				}
+				else {
+					right--;
+				}
+			}
+		}
+		for(ArrayList<Integer> triplet: set) {
+			ans.add(triplet);
+		}
+		return ans;
+	}
+}

@@ -1,0 +1,30 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    private static class Pair {
+        int index, start, end;
+        Pair(int index, int start, int end) {
+            this.index = index;
+            this.start = start;
+            this.end = end;
+        }
+    }
+    public static List<Integer> maximumMeetings(int[] start, int[] end) {        
+        int n = start.length;
+        Pair[] meetings = new Pair[n];
+        for(int i=0 ; i<n ; i++) {
+            meetings[i] = new Pair(i+1, start[i], end[i]);
+        }
+        Arrays.sort(meetings, (a,b)->(a.end-b.end));
+        List<Integer> ans = new ArrayList<>();
+        ans.add(meetings[0].index);
+        int lastEnd = meetings[0].end;
+        for(int i=1 ; i<n ; i++) {
+            if(meetings[i].start > lastEnd) {
+                ans.add(meetings[i].index);
+                lastEnd = meetings[i].end;
+            }
+        }
+        return ans;
+    }
+}

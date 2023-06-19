@@ -1,0 +1,25 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution
+{
+    public static int jobScheduling(int[][] jobs)
+    {
+        Arrays.sort(jobs, (a,b)->(b[1]-a[1]));
+        int maxDeadline = 0;
+        for(int[] job: jobs) {
+            maxDeadline = Math.max(maxDeadline, job[0]);
+        }
+        boolean[] finished = new boolean[maxDeadline+1];
+        int maxProfit = 0;
+        for(int[] job: jobs) {
+            for(int j=job[0] ; j>0 ; j--) {
+                if(!finished[j]) {
+                    finished[j] = true;
+                    maxProfit += job[1];
+                    break;
+                }
+            }
+        }
+        return maxProfit;
+    }
+}

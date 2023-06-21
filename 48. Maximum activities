@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class Solution {
+    private static class Pair {
+        int start, end;
+        Pair(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+    public static int maximumActivities(List<Integer> start, List<Integer> end) {
+        List<Pair> activities = new ArrayList<>();
+        int n = start.size();
+        for(int i=0 ; i<n ; i++) {
+            Pair activity = new Pair(start.get(i), end.get(i));
+            activities.add(activity);
+        }
+        Collections.sort(activities, (a,b)->(a.end-b.end));
+        int maxActivities = 1;
+        int lastEnd = activities.get(0).end;
+        for(int i=1 ; i<n ; i++) {
+            if(activities.get(i).start >= lastEnd) {
+                maxActivities++;
+                lastEnd = activities.get(i).end;
+            }
+        }
+        return maxActivities;
+    }
+}

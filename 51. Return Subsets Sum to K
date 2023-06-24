@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+
+public class Solution 
+{
+    public static void solve(int i, int sum, int k, ArrayList<Integer> arr, ArrayList<Integer> subset, ArrayList<ArrayList<Integer>> subsets) {
+        if(i == arr.size()) {
+            if(sum == k) {
+                subsets.add(new ArrayList(subset));
+            }
+            return;
+        }
+        subset.add(arr.get(i));
+        solve(i+1, sum+arr.get(i), k, arr, subset, subsets);
+        subset.remove(subset.size()-1);
+        solve(i+1, sum, k, arr, subset, subsets);
+    }
+    public static ArrayList<ArrayList<Integer>> findSubsetsThatSumToK(ArrayList<Integer> arr, int n, int k) {
+        ArrayList<ArrayList<Integer>> subsets = new ArrayList<>();
+        solve(0, 0, k, arr, new ArrayList<>(), subsets);
+        return subsets;
+    }
+}

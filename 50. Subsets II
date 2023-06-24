@@ -1,0 +1,20 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static void backtrack(int index, int n, int arr[], ArrayList<Integer> subset, ArrayList<ArrayList<Integer>> subsets) {
+        subsets.add(new ArrayList(subset));
+        for(int i=index ; i<n ; i++) {
+            if(i != index && arr[i] == arr[i-1]) continue;
+            subset.add(arr[i]);
+            backtrack(i+1, n, arr, subset, subsets);
+            subset.remove(subset.size()-1);
+        }
+    }
+    public static ArrayList<ArrayList<Integer>> uniqueSubsets(int n, int arr[]) {
+        Arrays.sort(arr);
+        ArrayList<ArrayList<Integer>> subsets = new ArrayList<>();
+        backtrack(0, n, arr, new ArrayList<>(), subsets);
+        return subsets;
+    }
+
+}

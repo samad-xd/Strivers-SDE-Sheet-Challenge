@@ -1,0 +1,30 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static void solve(int index, int n, char[] s, List<String> ans) {
+        if(index == n) {
+            ans.add(new String(s));
+            return;
+        }
+        for(int i=index ; i<n ; i++) {
+            swap(index, i, s);
+            solve(index+1, n, s, ans);
+            swap(index, i, s);
+        }
+    }
+    public static void swap(int i, int j, char[] s) {
+        char temp = s[i];
+        s[i] = s[j];
+        s[j] = temp;
+    }
+    public static List<String> findPermutations(String str) {
+        int n = str.length();
+        char[] s = new char[n];
+        for(int i=0 ; i<n ; i++) {
+            s[i] = str.charAt(i);
+        }
+        List<String> ans = new ArrayList<>();
+        solve(0, n, s, ans);
+        return ans;
+    }
+}
